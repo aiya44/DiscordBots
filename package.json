@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  },
+  "scripts": {
+    "start": "ts-node-dev src/index.ts"
+  }
+}
