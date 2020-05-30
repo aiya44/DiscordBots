@@ -36,49 +36,29 @@ client.on("message", (message) => {
 });
 
 client.on("messageReactionAdd", async (reaction, user) => {
+  if (reaction.message.channel instanceof Discord.DMChannel) return;
+  const channelRoles = reaction.message.channel.guild.roles.cache;
+  function matchRoles(roleid: string) {
+    let SelectedRole = channelRoles.find((role) => role.id == roleid);
+    if (SelectedRole) {
+      let memberRole = reaction.message.guild?.members.cache.find(
+        (member) => member.user.id === user.id
+      );
+      if (memberRole) {
+        memberRole.roles.add(SelectedRole);
+      }
+    }
+  }
+
   switch (reaction.emoji.name) {
     case "🐷":
-      if (reaction.message.channel instanceof Discord.DMChannel) return;
-      let pigRole = reaction.message.channel.guild.roles.cache.find(
-        (role) => role.id == "716059015083196487"
-      );
-      if (pigRole) {
-        let memberRole = reaction.message.guild?.members.cache.find(
-          (member) => member.user.id === user.id
-        );
-        if (memberRole) {
-          memberRole.roles.add(pigRole);
-        }
-      }
-
+      matchRoles("716059015083196487");
       break;
     case "🐸":
-      if (reaction.message.channel instanceof Discord.DMChannel) return;
-      let frogRole = reaction.message.channel.guild.roles.cache.find(
-        (role) => role.id == "716059162425163946"
-      );
-      if (frogRole) {
-        let memberRole = reaction.message.guild?.members.cache.find(
-          (member) => member.user.id === user.id
-        );
-        if (memberRole) {
-          memberRole.roles.add(frogRole);
-        }
-      }
+      matchRoles("716059162425163946");
       break;
     case "🐔":
-      if (reaction.message.channel instanceof Discord.DMChannel) return;
-      let chickenRole = reaction.message.channel.guild.roles.cache.find(
-        (role) => role.id == "716059202929426453"
-      );
-      if (chickenRole) {
-        let memberRole = reaction.message.guild?.members.cache.find(
-          (member) => member.user.id === user.id
-        );
-        if (memberRole) {
-          memberRole.roles.add(chickenRole);
-        }
-      }
+      matchRoles("716059202929426453");
       break;
   }
 });
