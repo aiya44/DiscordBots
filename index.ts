@@ -36,10 +36,11 @@ client.on("message", (message) => {
 });
 
 client.on("messageReactionAdd", async (reaction, user) => {
-  if (reaction.message.channel instanceof Discord.DMChannel) return;
-  const channelRoles = reaction.message.channel.guild.roles.cache;
-  function matchRoles(roleid: string) {
-    let SelectedRole = channelRoles.find((role) => role.id == roleid);
+  function grantRoleToUser(roleid: string) {
+    if (reaction.message.channel instanceof Discord.DMChannel) return;
+    let SelectedRole = reaction.message.channel.guild.roles.cache.find(
+      (role) => role.id == roleid
+    );
     if (SelectedRole) {
       let memberRole = reaction.message.guild?.members.cache.find(
         (member) => member.user.id === user.id
@@ -52,13 +53,13 @@ client.on("messageReactionAdd", async (reaction, user) => {
 
   switch (reaction.emoji.name) {
     case "🐷":
-      matchRoles("716059015083196487");
+      grantRoleToUser("716059015083196487");
       break;
     case "🐸":
-      matchRoles("716059162425163946");
+      grantRoleToUser("716059162425163946");
       break;
     case "🐔":
-      matchRoles("716059202929426453");
+      grantRoleToUser("716059202929426453");
       break;
   }
 });
